@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#111411" />
+    <title>Malstrom Engine</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="editor.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <a class="brand" href="#home" aria-label="Malstrom Engine home">
+          <span class="brand-mark">M<span>.</span></span>
+          <span class="brand-name">MALSTROM<small>GAME ENGINE</small></span>
+        </a>
+        <div class="side-label">WORKSPACE</div>
+        <nav class="navigation" aria-label="Main navigation">
+          <button class="nav-item active" data-view="home"><span class="nav-icon">◫</span>Overview</button>
+          <button class="nav-item" data-view="projects"><span class="nav-icon">▤</span>My projects</button>
+          <button class="nav-item" data-view="store"><span class="nav-icon">◇</span>Asset library</button>
+          <button class="nav-item" data-view="studio"><span class="nav-icon">✳</span>AI game builder<span class="nav-badge">BETA</span></button>
+          <button class="nav-item" data-view="vscript"><span class="nav-icon">⌘</span>VScript</button>
+        </nav>
+        <div class="side-bottom">
+          <div class="install-panel">
+            <div class="install-top"><span class="status-dot" id="engine-dot"></span><span id="engine-status">ENGINE NOT INSTALLED</span></div>
+            <p id="engine-copy">Install the starter runtime to set up your workspace.</p>
+            <button class="button button-lime button-small" id="install-engine">Install engine <span>↗</span></button>
+          </div>
+          <div class="profile"><div class="avatar">L</div><div><strong>Local workspace</strong><small>Offline mode</small></div><span class="profile-menu">···</span></div>
+        </div>
+      </aside>
+
+      <main class="main-area">
+        <header class="topbar">
+          <div class="breadcrumbs"><span>Workspace</span><span class="crumb-sep">/</span><strong id="page-title">Overview</strong></div>
+          <div class="top-actions"><span class="build-tag"><i></i> EARLY ACCESS <b>0.1.0</b></span><button class="icon-button" id="open-engine-folder" title="Open engine folder" aria-label="Open engine folder">↗</button></div>
+        </header>
+
+        <section class="view active" id="view-home">
+          <div class="welcome-row">
+            <div><div class="eyebrow"><span class="eyebrow-line"></span> YOUR CREATIVE WORKSPACE</div><h1>Make a world<br />worth <em>getting lost in.</em></h1><p class="lead">A place to shape a game, one good idea at a time.</p></div>
+            <div class="hero-scene" aria-hidden="true"><div class="scene-sun"></div><div class="scene-moon"></div><div class="scene-ridge ridge-back"></div><div class="scene-ridge ridge-front"></div><div class="scene-mark">MS / 01<br /><b>WILD<br />PLACES</b></div></div>
+          </div>
+          <div class="action-strip"><button class="button button-lime" id="new-project"><span class="button-plus">＋</span> New project</button><button class="button button-quiet" id="open-project">Open project <span>↗</span></button><button class="button button-quiet" data-go="studio">Build with AI <span>✳</span></button><span class="shortcut-hint">YOUR NEXT IDEA STARTS HERE</span></div>
+          <div class="section-heading"><div><span class="section-kicker">PICK UP WHERE YOU LEFT OFF</span><h2>Recent projects</h2></div><button class="text-button" data-go="projects">All projects <span>→</span></button></div>
+          <div id="recent-projects" class="project-grid"></div>
+          <div class="lower-grid"><div class="section-heading compact"><div><span class="section-kicker">A GOOD PLACE TO START</span><h2>From the library</h2></div><button class="text-button" data-go="store">Browse library <span>→</span></button></div><div id="featured-assets" class="asset-row"></div></div>
+        </section>
+
+        <section class="view" id="view-projects">
+          <div class="page-intro"><div class="eyebrow"><span class="eyebrow-line"></span> YOUR WORK</div><div class="page-title-row"><div><h1>My projects<span class="title-period">.</span></h1><p class="lead">Every world starts somewhere.</p></div><button class="button button-lime" id="new-project-list"><span class="button-plus">＋</span> New project</button></div></div>
+          <div id="all-projects" class="project-grid project-grid-all"></div>
+          <div class="empty-state" id="projects-empty"><div class="empty-mark">＋</div><h3>Your next favorite game is waiting.</h3><p>Create a project and give the idea somewhere to live.</p><button class="button button-lime" id="empty-new-project">Create your first project</button></div>
+        </section>
+
+        <section class="view" id="view-store">
+          <div class="page-intro"><div class="eyebrow"><span class="eyebrow-line"></span> COMMUNITY STARTER LIBRARY</div><div class="page-title-row"><div><h1>Asset library<span class="title-period">.</span></h1><p class="lead">Little building blocks for bigger worlds.</p></div><span class="local-label"><i></i> LOCAL CATALOG</span></div></div>
+          <div class="store-toolbar"><div class="filter-group" id="asset-filters"><button class="filter active" data-filter="All">All assets <span>06</span></button><button class="filter" data-filter="Characters">Characters</button><button class="filter" data-filter="Worlds">Worlds</button><button class="filter" data-filter="Audio">Audio</button></div><label class="search-box"><span>⌕</span><input id="asset-search" placeholder="Find an asset" aria-label="Find an asset" /></label></div>
+          <div id="asset-grid" class="asset-grid"></div>
+          <p class="catalog-note">Starter library assets are metadata-only examples. Community downloads will be available when an asset catalog is connected.</p>
+        </section>
+
+        <section class="view" id="view-studio">
+          <div class="page-intro"><div class="eyebrow"><span class="eyebrow-line"></span> MALSTROM AI / PREVIEW</div><div class="page-title-row"><div><h1>Start with a spark<span class="title-period">.</span></h1><p class="lead">Describe your idea. Get a VScript starting point you can make your own.</p></div><span class="local-label"><i></i> LOCAL GENERATOR</span></div></div>
+          <div class="studio-layout"><div class="prompt-panel"><label class="field-label" for="idea-prompt">WHAT ARE WE MAKING?</label><textarea id="idea-prompt" maxlength="600" placeholder="A cozy forest adventure where you collect glowing mushrooms and help a lost fox find its way home..."></textarea><div class="prompt-bottom"><span id="prompt-count">0 / 600</span><button class="button button-lime" id="generate-idea">Generate a starting point <span>✳</span></button></div><div class="prompt-suggestions"><span>TRY</span><button data-prompt="A tiny space explorer collects stars and dodges comets.">Space explorer</button><button data-prompt="A sleepy fox gathers berries in a rainy woodland.">Woodland quest</button></div></div>
+            <div class="generation-panel"><div class="generation-head"><span class="section-kicker">YOUR VScript STARTER</span><span class="file-chip">.MSC</span></div><div class="code-window"><div class="code-gutter" id="code-gutter">01<br />02<br />03<br />04<br />05<br />06<br />07<br />08<br />09<br />10</div><pre id="generated-code"><code></code></pre></div><div class="generation-foot"><span id="generator-status">EDITABLE STARTER · NO ACCOUNT NEEDED</span><button class="text-button" id="copy-code">Copy script <span>▣</span></button></div></div></div>
+        </section>
+
+        <section class="view" id="view-vscript">
+          <div class="page-intro"><div class="eyebrow"><span class="eyebrow-line"></span> THE FRIENDLY GAME LANGUAGE</div><div class="page-title-row"><div><h1>Meet VScript<span class="title-period">.</span></h1><p class="lead">Write what happens in words that make sense to you.</p></div><span class="file-chip file-chip-large">.MSC</span></div></div>
+          <div class="vscript-layout"><div class="vscript-copy"><span class="section-kicker">SMALL WORDS. BIG WORLDS.</span><h2>Start with what<br />your game <em>does.</em></h2><p>VScript is Malstrom's beginner-friendly scripting format. Events read like instructions, so you can focus on the feeling of the game before learning complicated syntax.</p><button class="button button-lime" id="new-script-project">Make a project <span>↗</span></button></div>
+            <div class="generation-panel vscript-example"><div class="generation-head"><span class="section-kicker">A FIRST SCRIPT</span><span class="file-chip">.MSC</span></div><div class="code-window"><div class="code-gutter">01<br />02<br />03<br />04<br />05<br />06<br />07<br />08<br />09</div><pre><code><span class="code-comment"># When the game begins...</span><br />on_start:<br />    say <span class="code-string">"Welcome, explorer!"</span><br />    set score to <span class="code-number">0</span><br /><br /><span class="code-comment"># When the player finds a star...</span><br />on_collect <span class="code-string">"star"</span>:<br />    add <span class="code-number">1</span> to score<br />    say <span class="code-string">"You found one!"</span></code></pre></div><div class="generation-foot"><span>PLAIN TEXT · EASY TO EDIT</span></div></div></div>
+          <div class="format-strip"><div><span class="file-chip">.MSG</span><strong>Game file</strong><small>Scenes, settings, and the pieces of your game.</small></div><div><span class="file-chip">.MSM</span><strong>Model / asset</strong><small>A portable package for things your world uses.</small></div><div><span class="file-chip">.MSC</span><strong>VScript code</strong><small>Readable instructions that bring a game to life.</small></div></div>
+        </section>
+        <section class="view editor-view" id="view-editor">
+          <div class="editor-toolbar">
+            <button class="icon-button" id="editor-back" title="Back to launcher" aria-label="Back to launcher">←</button>
+            <div class="editor-project"><span class="section-kicker">MALSTROM PROJECT</span><strong id="editor-project-name">Untitled</strong></div>
+            <div class="editor-actions"><span class="save-state" id="save-state">SAVED</span><button class="button button-quiet" id="toggle-script">VScript <span>.MSC</span></button><button class="button button-quiet" id="save-project">Save <span>⌘S</span></button><button class="button button-lime" id="play-project"><span>▶</span> Play</button></div>
+          </div>
+          <div class="editor-workspace">
+            <aside class="editor-sidebar scene-sidebar">
+              <div class="panel-heading"><span>SCENE OBJECTS</span><button class="panel-icon" id="add-object" title="Add object" aria-label="Add object">＋</button></div>
+              <div id="object-list" class="object-list"></div>
+              <div class="scene-add-menu" id="scene-add-menu"><button data-add="player">＋ Player</button><button data-add="platform">＋ Platform</button><button data-add="star">＋ Star</button></div>
+              <div class="scene-sidebar-foot"><span class="status-dot online"></span><span>2D SCENE</span><span class="file-chip">.MSG</span></div>
+            </aside>
+            <div class="editor-center">
+              <div class="stage-toolbar"><span id="scene-name">First Scene</span><span class="stage-size">960 × 540</span><button id="grid-toggle" class="panel-icon" title="Toggle grid" aria-label="Toggle grid">▦</button></div>
+              <div class="stage-wrap"><canvas id="game-canvas" width="960" height="540" aria-label="2D game scene editor"></canvas><div class="game-hud" id="game-hud"></div><div class="play-overlay" id="play-overlay"><strong>PLAYING</strong><span>Arrows move · Space jumps · Esc stops</span></div></div>
+              <div class="script-dock" id="script-dock"><div class="script-dock-head"><span>VScript</span><span class="file-chip">.MSC</span><span class="script-error" id="script-error"></span><button class="panel-icon" id="close-script" title="Close script editor" aria-label="Close script editor">×</button></div><textarea id="script-source" spellcheck="false" aria-label="VScript editor"></textarea></div>
+              <div class="stage-footer" id="stage-footer"><span id="editor-message">Select an object to edit it. Drag objects to move them.</span><span id="scene-object-count">0 OBJECTS</span></div>
+            </div>
+            <aside class="editor-sidebar inspector-sidebar">
+              <div class="panel-heading"><span>INSPECTOR</span><span class="inspector-type" id="inspector-type">SCENE</span></div>
+              <div id="inspector-fields" class="inspector-fields"><div class="inspector-empty">Select an object in the scene to edit its properties.</div></div>
+              <button class="delete-object" id="delete-object" disabled>Delete object</button>
+            </aside>
+          </div>
+        </section>
+        <footer class="app-footer"><span>MALSTROM ENGINE <b>·</b> BUILT FOR THE FIRST IDEA AND THE NEXT ONE</span><span>EARLY ACCESS <b>0.1.0</b></span></footer>
+      </main>
+      <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    </div>
+    <script src="vscript.js"></script>
+    <script src="app.js"></script>
+    <script src="editor.js"></script>
+  </body>
+</html>
